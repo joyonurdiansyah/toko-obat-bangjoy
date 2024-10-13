@@ -1,5 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
+        <!-- Toastr CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
         <div class="flex flex-col sm:flex-row w-full justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4 sm:mb-0">
                 {{ __('Details') }}
@@ -35,11 +37,19 @@
                         </div>
                     </div>
 
-                    <span class="py-1 px-3 rounded-full text-white bg-orange-500">
-                        <p class="text-white font-bold text-sm">
-                            PENDING
-                        </p>
-                    </span>
+                    @if ($productTransaction->is_paid)
+                        <span class="py-1 px-3 rounded-full text-white bg-green-500">
+                            <p class="text-white font-bold text-sm">
+                                SUCCESS
+                            </p>
+                        </span>
+                    @else
+                        <span class="py-1 px-3 rounded-full text-white bg-orange-500">
+                            <p class="text-white font-bold text-sm">
+                                PENDING
+                            </p>
+                        </span>
+                    @endif
 
                     <!-- Action Buttons -->
                 </div>
@@ -57,7 +67,7 @@
                             @if ($detail->product)
                                 <div class="item-card flex flex-col sm:flex-row justify-between items-center">
                                     <div class="flex flex-row items-center gap-x-3">
-                                        <img src="{{Storage::url($detail->product->photo)}}" alt=""
+                                        <img src="{{ Storage::url($detail->product->photo) }}" alt=""
                                             class="w-[50px] h-[50px]">
                                         <div>
                                             <h3 class="text-xl font-bold text-indigo-950">
@@ -69,7 +79,7 @@
                                         </div>
                                     </div>
                                     <p class="text-base text-slate-500">
-                                        {{$detail->product->category->name}}
+                                        {{ $detail->product->category->name }}
                                     </p>
                                 </div>
                             @endif
@@ -141,14 +151,22 @@
                 <hr class="my-3">
 
                 @role('owner')
-                    <form method="POST" action="{{ route('product_transactions.update', 1) }}" class="delete-form">
-                        @csrf
-                        @method('PUT')
-                        <button type="button"
-                            class="font-bold py-3 px-5 rounded-full text-white bg-indigo-700 delete-button">
-                            Approve Order
-                        </button>
-                    </form>
+                    @if ($productTransaction->is_paid)
+                        <a href="#" type="button"
+                            class="w-fit font-bold py-3 px-5 rounded-full text-white bg-indigo-700 delete-button">
+                            WhatsApp Costumer
+                        </a>
+                    @else 
+                        <form method="POST" action="{{ route('product_transactions.update', $productTransaction) }}"
+                            class="delete-form">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit"
+                                class="font-bold py-3 px-5 rounded-full text-white bg-indigo-700 delete-button">
+                                Approve Order
+                            </button>
+                        </form>
+                    @endif
                 @endrole
 
                 @role('buyer')

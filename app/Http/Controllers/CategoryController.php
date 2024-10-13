@@ -133,7 +133,7 @@ class CategoryController extends Controller
     {
         try {
             $category->delete();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Category deleted successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
 

@@ -66,7 +66,15 @@ class ProductTransactionController extends Controller
      */
     public function update(Request $request, ProductTransaction $productTransaction)
     {
-        //
+        try {
+            $productTransaction->update([
+                'is_paid' => true
+            ]);
+    
+            return redirect()->back()->with('success', 'Order has been approved successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to approve the order. Please try again.');
+        }
     }
 
     /**
