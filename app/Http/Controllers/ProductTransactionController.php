@@ -45,7 +45,7 @@ class ProductTransactionController extends Controller
         $user = Auth::user();
 
         $validated = $request->validate([
-            'addresses' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'proof' => 'required|image|mimes:png,jpg,jpeg',
             'notes' => 'required|string|max:65535',
