@@ -77,7 +77,7 @@ class ProductTransactionController extends Controller
 
             if($request->hasFile('proof')){
                 $proofPath = $request->file('proof')->store('payment_proofs', 'public');
-                $validated['proof_path'] = $proofPath;
+                $validated['proof'] = $proofPath;
             }
 
             $newTransaction = ProductTransaction::create($validated);
