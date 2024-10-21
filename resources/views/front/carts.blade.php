@@ -191,7 +191,7 @@
                 <!-- Address -->
                 <div class="flex flex-col gap-2.5">
                     <label for="address" class="text-base font-semibold">Address</label>
-                    <input type="text" name="address" id="address__"
+                    <input type="text" name="address" id="address"
                         class="form-input bg-[url('{{ asset('assets/svgs/ic-location.svg') }}')]"
                         value="Tedjamudita 3" required>
                 </div>
@@ -199,7 +199,7 @@
                 <!-- City -->
                 <div class="flex flex-col gap-2.5">
                     <label for="city" class="text-base font-semibold">City</label>
-                    <input type="text" name="city" id="city__"
+                    <input type="text" name="city" id="city"
                         class="form-input bg-[url('{{ asset('assets/svgs/ic-map.svg') }}')]" value="Bolavia"
                         required>
                 </div>
@@ -207,7 +207,7 @@
                 <!-- Post Code -->
                 <div class="flex flex-col gap-2.5">
                     <label for="post_code" class="text-base font-semibold">Post Code</label>
-                    <input type="number" name="post_code" id="postcode__"
+                    <input type="number" name="post_code" id="post_code"
                         class="form-input bg-[url('{{ asset('assets/svgs/ic-house.svg') }}')]" value="22081882"
                         required>
                 </div>
@@ -215,7 +215,7 @@
                 <!-- Phone Number -->
                 <div class="flex flex-col gap-2.5">
                     <label for="phone_number" class="text-base font-semibold">Phone Number</label>
-                    <input type="number" name="phone_number" id="phonenumber__"
+                    <input type="number" name="phone_number" id="phone_number"
                         class="form-input bg-[url('{{ asset('assets/svgs/ic-phone.svg') }}')]" value="602192301923"
                         required>
                 </div>
@@ -226,22 +226,22 @@
                     <span class="relative">
                         <img src="{{ asset('assets/svgs/ic-edit.svg') }}" class="absolute size-5 top-4 left-4"
                             alt="">
-                        <textarea name="notes" id="notes__" class="form-input !rounded-2xl w-full min-h-[150px]" required>nearby with local shops that close with the big river next to aftermarket place.</textarea>
+                        <textarea name="notes" id="notes" class="form-input !rounded-2xl w-full min-h-[150px]" required>nearby with local shops that close with the big river next to aftermarket place.</textarea>
                     </span>
                 </div>
 
                 <!-- Proof of Payment -->
                 <div class="flex flex-col gap-2.5">
                     <label for="proof" class="text-base font-semibold">Proof of Payment</label>
-                    <input type="file" name="proof" id="proof_of_payment__"
+                    <input type="file" name="proof" id="proof"
                         class="form-input bg-[url('{{ asset('assets/svgs/ic-folder-add.svg') }}')]" required>
                 </div>
 
                 <!-- Total Amount -->
-                <input type="hidden" name="total_amount" value="0"> <!-- Diubah di backend -->
+                <input type="hidden" name="total_amount" value="0"> 
 
                 <!-- Is Paid -->
-                <input type="hidden" name="is_paid" value="0"> <!-- Diubah di backend -->
+                <input type="hidden" name="is_paid" value="0"> 
             </div>
 
             <div
@@ -262,6 +262,7 @@
                 </section>
             </div>
         </form>
+
     </section>
 
 
