@@ -19,7 +19,12 @@
             </div>
             <div class="">
                 <p class="text-base font-semibold capitalize text-primary">
-                    bangjoy
+                    @auth
+                        {{ Auth::user()->name }}
+                    @endauth
+                    @guest
+                        Costumer
+                    @endguest
                 </p>
                 <p class="text-sm">
                     Customer
@@ -68,7 +73,7 @@
                     Orders
                 </p>
             </a>
-            <a href="#" class="flex flex-col items-center justify-center gap-1 px-1 group">
+            <a href="{{route('dashboard')}}" class="flex flex-col items-center justify-center gap-1 px-1 group">
                 <img src="{{ asset('assets/svgs/ic-profile.svg') }}"
                     class="filter-to-grey group-[.is-active]:filter-to-primary" alt="">
                 <p
@@ -86,9 +91,9 @@
             Best Medicines
         </p>
 
-        <form action="" method="POST" id="searchForm" class="w-full">
+        <form action="{{route('front.search')}}" method="GET" id="searchForm" class="w-full">
             <input style="background-image: url('{{ asset('assets/svgs/ic-search.svg') }}')" type="text"
-                name="search" id="searchProduct"
+                name="keyword" id="searchProduct"
                 class="block w-full py-3.5 pl-4 pr-10 rounded-[50px] font-semibold placeholder:text-grey placeholder:font-normal text-black text-base bg-no-repeat bg-[calc(100%-16px)] focus:ring-2 focus:ring-primary focus:outline-none focus:border-none transition-all"
                 placeholder="Search by product name">
         </form>
@@ -96,7 +101,7 @@
 
     <!-- Your last order -->
     <section class="wrapper">
-        <div style="background-image: url('{{asset('assets/svgs/pipeline.svg')}}')"
+        <div style="background-image: url('{{ asset('assets/svgs/pipeline.svg') }}')"
             class="flex justify-between gap-5 items-center bg-lilac py-3.5 px-4 rounded-2xl relative bg-left bg-no-repeat bg-cover">
             <p class="text-base font-bold">
                 Your last order has <br>
@@ -113,15 +118,15 @@
         </p>
         <div id="categoriesSlider" class="relative">
             <!-- Diabetes -->
-			@forelse ($categories as $category)
-				<div class="inline-flex gap-2.5 items-center py-3 px-3.5 relative bg-white rounded-xl mr-4">
-					<img src="{{Storage::url($category->icon)}}" class="size-10" alt="">
-					<a href="#" class="text-base font-semibold truncate stretched-link">
-						{{$category->name}}
-					</a>
-				</div>
-			@empty
-			@endforelse
+            @forelse ($categories as $category)
+                <div class="inline-flex gap-2.5 items-center py-3 px-3.5 relative bg-white rounded-xl mr-4">
+                    <img src="{{ Storage::url($category->icon) }}" class="size-10" alt="">
+                    <a href="{{ route('front.product.category', $category) }}" class="text-base font-semibold truncate stretched-link">
+                        {{ $category->name }}
+                    </a>
+                </div>
+            @empty
+            @endforelse
         </div>
     </section>
 
@@ -133,24 +138,25 @@
         <div id="proudctsSlider" class="relative">
             <!-- Panadomal -->
 
-			@forelse ($products as $product)
-				<div
-					class="rounded-2xl bg-white py-3.5 pl-4 pr-[22px] inline-flex flex-col gap-4 items-start mr-4 relative w-[158px]">
-					<img src="{{Storage::url($product->photo)}}" class="h-[100px] w-full object-contain"
-						alt="">
-					<div>
-						<a href="{{route('front.product.details', $product->slug)}}" class="text-base font-semibold w-[120px] truncate stretched-link block">
-							{{$product->name}}
-						</a>
-						<p class="text-sm truncate text-grey">
-							Rp {{$product->price}}
-						</p>
-					</div>
-				</div>
-			@empty
-				<p>Belum ada Product baru tersedia</p>
-			@endforelse 
-        
+            @forelse ($products as $product)
+                <div
+                    class="rounded-2xl bg-white py-3.5 pl-4 pr-[22px] inline-flex flex-col gap-4 items-start mr-4 relative w-[158px]">
+                    <img src="{{ Storage::url($product->photo) }}" class="h-[100px] w-full object-contain"
+                        alt="">
+                    <div>
+                        <a href="{{ route('front.product.details', $product->slug) }}"
+                            class="text-base font-semibold w-[120px] truncate stretched-link block">
+                            {{ $product->name }}
+                        </a>
+                        <p class="text-sm truncate text-grey">
+                            Rp {{ $product->price }}
+                        </p>
+                    </div>
+                </div>
+            @empty
+                <p>Belum ada Product baru tersedia</p>
+            @endforelse
+
         </div>
     </section>
 
@@ -256,7 +262,6 @@
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
     <script src="{{ asset('scripts/sliderConfig.js') }}" type="module"></script>
-    <script src="{{ asset('scripts/searchProductListener.js') }}" type="module"></script>
 </body>
 
 </html>

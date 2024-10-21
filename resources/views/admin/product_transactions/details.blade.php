@@ -12,7 +12,7 @@
     <div class="py-12">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white flex flex-col gap-y-5 overflow-hidden p-10 shadow-sm sm:rounded-lg">
-                <div class="item-card flex flex-col sm:flex-row justify-between items-center gap-y-2 sm:gap-y-0">
+                <div class="item-card flex flex-col md:flex-row justify-between md:items-center gap-y-3">
                     <!-- Product Info -->
                     <div class="flex flex-row items-center gap-x-3">
                         <div>
@@ -20,7 +20,7 @@
                                 Total transaksi
                             </p>
                             <h3 class="text-xl font-bold text-indigo-950">
-                                Rp {{ $productTransaction->total_amount }}
+                                Rp {{ number_format($productTransaction->total_amount, 0, ',', '.') }}
                             </h3>
                         </div>
                     </div>
@@ -38,13 +38,13 @@
                     </div>
 
                     @if ($productTransaction->is_paid)
-                        <span class="py-1 px-3 rounded-full text-white bg-green-500">
+                        <span class="py-1 px-3 w-fit rounded-full text-white bg-green-500">
                             <p class="text-white font-bold text-sm">
                                 SUCCESS
                             </p>
                         </span>
                     @else
-                        <span class="py-1 px-3 rounded-full text-white bg-orange-500">
+                        <span class="py-1 px-3 w-fit rounded-full text-white bg-orange-500">
                             <p class="text-white font-bold text-sm">
                                 PENDING
                             </p>
@@ -60,7 +60,7 @@
                     List of Items
                 </h3>
 
-                <div class="grid grid-cols-4 gap-x-10">
+                <div class="grid-cols-1 md:grid-cols-4 grid gap-x-10">
                     <div class="flex flex-col gap-y-5 col-span-2">
                         <!-- Item Cards -->
                         @forelse ($productTransaction->transactionDetails as $detail)

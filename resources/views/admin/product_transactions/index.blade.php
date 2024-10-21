@@ -14,20 +14,23 @@
                 @forelse ($product_transactions as $transaction)
                     <div class="item-card flex flex-col sm:flex-row justify-between items-center gap-y-4 sm:gap-y-0">
                         <!-- Product Info -->
+                        <a href="{{ route('product_transactions.show', $transaction) }}">
                         <div class="flex flex-row items-center gap-x-3">
                             <div>
                                 <p class="text-base text-slate-500">
                                     Total transaksi
                                 </p>
                                 <h3 class="text-xl font-bold text-indigo-950">
-                                    {{$transaction->total_amount}}
+                                    Rp {{ number_format($transaction->total_amount, 0, ',', '.') }}
                                 </h3>
                             </div>
                         </div>
+                        </a>
+                        
     
                         <!-- Product Category -->
-                        <div class="ml-2 mr-2">
-                            <div>
+                        <div class="ml-2 mr-2 text-center">
+                            <div class="hidden md:flex flex-col">
                                 <p class="text-base text-slate-500">
                                     Date
                                 </p>
@@ -52,7 +55,7 @@
                         @endif
     
                         <!-- Action Buttons -->
-                        <div class="flex flex-col sm:flex-row items-center gap-y-3 sm:gap-x-3 ml-4">
+                        <div class="hidden md:flex flex-col sm:flex-row items-center gap-y-3 sm:gap-x-3 ml-4">
                             <a href="{{ route('product_transactions.show', $transaction) }}"
                                 class="font-bold py-3 px-5 rounded-full text-white bg-indigo-700">View Details</a>
                         </div>
