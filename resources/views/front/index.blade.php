@@ -182,80 +182,44 @@
     <!-- Most Purchased -->
     <section class="wrapper flex flex-col gap-2.5 pb-40">
         <p class="text-base font-bold">
-            Most Purchased
+            Popular Product
         </p>
         <div class="flex flex-col gap-4">
-            <!-- Softovac Rami -->
-            <div class="py-3.5 pl-4 pr-[22px] bg-white rounded-2xl flex gap-1 items-center relative">
-                <img src="{{ asset('assets/images/product-2.webp') }}"
-                    class="w-full max-w-[70px] max-h-[70px] object-contain" alt="">
-                <div class="flex flex-wrap items-center justify-between w-full gap-1">
-                    <div class="flex flex-col gap-1">
-                        <a href="details.html"
-                            class="text-base font-semibold stretched-link whitespace-nowrap w-[150px] truncate">
-                            Softovac Rami
-                        </a>
-                        <p class="text-sm text-grey">
-                            Rp 290.000
-                        </p>
+            @php
+                $displayedCategories = []; // Array untuk menyimpan kategori yang sudah ditampilkan
+            @endphp
+            @foreach ($products as $product)
+                @if (!in_array($product->category->id, $displayedCategories))
+                    <div class="py-3.5 pl-4 pr-[22px] bg-white rounded-2xl flex gap-1 items-center relative">
+                        <img src="{{ Storage::url($product->photo) }}" 
+                            class="w-full max-w-[70px] max-h-[70px] object-contain" 
+                            alt="{{ $product->name }}">
+                        <div class="flex flex-wrap items-center justify-between w-full gap-1">
+                            <div class="flex flex-col gap-1">
+                                <a href="{{ route('front.product.details', $product->slug) }}" 
+                                class="text-base font-semibold stretched-link whitespace-nowrap w-[150px] truncate">
+                                    {{ $product->name }}
+                                </a>
+                                <p class="text-sm text-grey">
+                                    Rp {{ number_format($product->price, 0, ',', '.') }}
+                                </p>
+                            </div>
+                            <div class="flex">
+                                @for ($i = 0; $i < 5; $i++)
+                                    <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
+                                @endfor
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                    </div>
-                </div>
-            </div>
-            <!-- Enoki Pro -->
-            <div class="py-3.5 pl-4 pr-[22px] bg-white rounded-2xl flex gap-1 items-center relative">
-                <img src="{{ asset('assets/images/product-1.webp') }}"
-                    class="w-full max-w-[70px] max-h-[70px] object-contain" alt="">
-                <div class="flex flex-wrap items-center justify-between w-full gap-1">
-                    <div class="flex flex-col gap-1">
-                        <a href="details.html"
-                            class="text-base font-semibold stretched-link whitespace-nowrap w-[150px] truncate">
-                            Enoki Softovac
-                        </a>
-                        <p class="text-sm text-grey">
-                            Rp 34.500.000
-                        </p>
-                    </div>
-                    <div class="flex">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                    </div>
-                </div>
-            </div>
-            <!-- Veetax Bora -->
-            <div class="py-3.5 pl-4 pr-[22px] bg-white rounded-2xl flex gap-1 items-center relative">
-                <img src="{{ asset('assets/images/product-4.webp') }}"
-                    class="w-full max-w-[70px] max-h-[70px] object-contain" alt="">
-                <div class="flex flex-wrap items-center justify-between w-full gap-1">
-                    <div class="flex flex-col gap-1">
-                        <a href="details.html"
-                            class="text-base font-semibold stretched-link whitespace-nowrap w-[150px] truncate">
-                            Veetax Bora
-                        </a>
-                        <p class="text-sm text-grey">
-                            Rp 899.000
-                        </p>
-                    </div>
-                    <div class="flex">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                        <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
-                    </div>
-                </div>
-            </div>
+                    @php
+                        $displayedCategories[] = $product->category->id; // Tambahkan kategori yang ditampilkan
+                    @endphp
+                @endif
+            @endforeach
         </div>
     </section>
+    
+    
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

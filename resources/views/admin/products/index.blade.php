@@ -1,19 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row w-full justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4 sm:mb-0">
+        <div class="flex flex-col items-center justify-between w-full sm:flex-row">
+            <h2 class="mb-4 text-xl font-semibold leading-tight text-gray-800 sm:mb-0">
                 {{ __('Manage Products') }}
             </h2>
             <a href="{{ route('admin.products.create') }}"
-                class="font-bold py-3 px-5 rounded-full text-white bg-indigo-700">Tambah Produk</a>
+                class="px-5 py-3 font-bold text-white bg-indigo-700 rounded-full">Tambah Produk</a>
         </div>
     </x-slot>
     
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white flex flex-col gap-y-5 overflow-hidden p-10 shadow-sm sm:rounded-lg">
+            <div class="flex flex-col p-10 overflow-hidden bg-white shadow-sm gap-y-5 sm:rounded-lg">
                 @forelse ($products as $product)
-                    <div class="item-card flex flex-col sm:flex-row justify-between items-center gap-y-4 sm:gap-y-0">
+                    <div class="flex flex-col items-center justify-between item-card sm:flex-row gap-y-4 sm:gap-y-0">
                         <!-- Product Info -->
                         <div class="flex flex-row items-center gap-x-3">
                             <img src="{{ Storage::url($product->photo) }}" alt="" class="w-[50px] h-[50px]">
@@ -26,24 +26,24 @@
                                 </p>
                             </div>
                         </div>
-    
+            
                         <!-- Product Category -->
                         <div class="ml-2 mr-2">
-                            <p class="text-base text-slate-500 text-center sm:text-left">
+                            <p class="text-base text-center text-slate-500 sm:text-left">
                                 {{ $product->category->name }}
                             </p>
                         </div>
-    
+            
                         <!-- Action Buttons -->
-                        <div class="flex flex-col sm:flex-row items-center gap-y-3 sm:gap-x-3 ml-4">
+                        <div class="flex flex-col items-center ml-4 sm:flex-row gap-y-3 sm:gap-x-3">
                             <a href="{{ route('admin.products.edit', $product) }}"
-                                class="font-bold py-3 px-5 rounded-full text-white bg-indigo-700">Edit</a>
+                                class="px-5 py-3 font-bold text-white bg-indigo-700 rounded-full">Edit</a>
                             <form method="POST" action="{{ route('admin.products.destroy', $product) }}"
                                 class="delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button"
-                                    class="font-bold py-3 px-5 rounded-full text-white bg-red-700 delete-button">
+                                    class="px-5 py-3 font-bold text-white bg-red-700 rounded-full delete-button">
                                     Delete
                                 </button>
                             </form>
@@ -52,9 +52,22 @@
                 @empty
                     <p>Belum ada produk yang ditambahkan oleh pemilik apotek</p>
                 @endforelse
+                
+                <!-- Pagination -->
+                <div class="mt-4">
+                    {{ $products->links('vendor.pagination.tailwind') }}
+                </div>
+                
+                <!-- Current Page Indicator -->
+                <div class="mt-2 text-center">
+                    <span class="font-bold text-blue-500">
+                        Halaman {{ $products->currentPage() }} dari {{ $products->lastPage() }}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
+    
     
 
     <!-- SweetAlert Script -->
