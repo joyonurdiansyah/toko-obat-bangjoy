@@ -87,7 +87,7 @@
     <!-- Header -->
     <section class="wrapper flex flex-col gap-2.5 items-center justify-center">
         <p class="text-4xl font-extrabold text-center">
-            We Provide <br>
+            Explore Ours <br>
             Best Medicines
         </p>
 
